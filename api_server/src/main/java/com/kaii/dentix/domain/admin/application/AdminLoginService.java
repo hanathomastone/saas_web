@@ -19,12 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AdminLoginService {
+    private final JwtTokenUtil jwtTokenUtil;
 
     private final AdminRepository adminRepository;
 
     private final PasswordEncoder passwordEncoder;
-
-    private final JwtTokenUtil jwtTokenUtil;
 
     /**
      *  관리자 로그인
