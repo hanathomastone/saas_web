@@ -1,4 +1,4 @@
-name: Deploy to EC2 with Docker (.env based)
+name: Deploy to EC2 (nohup)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted   # EC2에 설치된 GitHub Runner에서 실행
+    runs-on: self-hosted   # EC2에 설치한 GitHub Actions Runner에서 실행
 
     steps:
       - name: Checkout source
@@ -21,16 +21,12 @@ jobs:
       - name: Build JAR
         run: ./gradlew clean build -x test
 
-      - name: Build Docker image
-        run: docker build -t saas-dentix:latest .
-
-      - name: Stop old container
-        run: docker rm -f saas-dentix || true
-
-      - name: Run new container with .env
+      - name: Stop old process (nohup or Docker)
         run: |
-          docker run -d \
-            --name saas-dentix \
-            -p 8080:8080 \
-            --env-file /home/ec2-user/saas_dentiX_devel/.env \
-            saas-dentix:latest
+          pkill -f 'java -jar' || true
+
+      - name: Run new process (nohup)
+        run: |
+          nohup java -jar build/libs/*.jar \
+            --spring.profiles.active=dev \
+            > app.log 2>&1 &
