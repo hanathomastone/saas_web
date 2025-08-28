@@ -2,7 +2,6 @@ package com.kaii.dentix.global.config;
 
 import com.kaii.dentix.domain.jwt.JwtAuthenticationFilter;
 import com.kaii.dentix.domain.jwt.JwtTokenUtil;
-import com.kaii.dentix.domain.userDeviceType.application.UserDeviceTypeService;
 import com.kaii.dentix.global.common.filter.VersionCheckFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class WebSecurityConfig {
 
     private final JwtTokenUtil jwtTokenUtil;
 
-    private final UserDeviceTypeService userDeviceTypeService;
+//    private final UserDeviceTypeService userDeviceTypeService;
 
     public static String[] EXCLUDE_URLS = {
             "/actuator/health", // health check
@@ -56,8 +55,7 @@ public class WebSecurityConfig {
                         .requestMatchers(EXCLUDE_URLS).permitAll()
                         .anyRequest().hasAnyRole("USER", "ADMIN")
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new VersionCheckFilter(userDeviceTypeService), JwtAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

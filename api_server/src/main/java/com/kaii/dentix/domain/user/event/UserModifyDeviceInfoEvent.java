@@ -10,9 +10,6 @@ public class UserModifyDeviceInfoEvent {
 
     private final Long userId;
     private final HttpServletRequest httpServletRequest;
-    private final String userDeviceModel;
-    private final String userDeviceManufacturer;
-    private final String userOsVersion;
-    private final String userDeviceToken;
+
 
 }

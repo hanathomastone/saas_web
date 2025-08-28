@@ -1,15 +1,13 @@
 FROM amazoncorretto:17.0.7-alpine3.17
-LABEL maintainer="hjlee@kai-i.com"
+LABEL maintainer="hana0142@thomastone.co.kr"
 
-ARG SPRING_PROFILES_ACTIVE
-ARG CONFIG_SERVER_ENCRYPT_KEY
-ARG CONFIG_SERVER_USERNAME
-ARG CONFIG_SERVER_PASSWORD
-
+# 빌드 타임 ARG (기본값 dev)
+ARG SPRING_PROFILES_ACTIVE=dev
+# 런타임 ENV (docker run 시 -e 로 덮어쓰기 가능)
 ENV SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE
-ENV CONFIG_SERVER_ENCRYPT_KEY=$CONFIG_SERVER_ENCRYPT_KEY
-ENV CONFIG_SERVER_USERNAME=$CONFIG_SERVER_USERNAME
-ENV CONFIG_SERVER_PASSWORD=$CONFIG_SERVER_PASSWORD
 
-COPY ./build/libs/dentix-0.0.1-SNAPSHOT.jar application.jar
-CMD java -jar ./application.jar
+# JAR 복사
+COPY ./build/libs/*.jar application.jar
+
+# 실행
+CMD ["java", "-jar", "./application.jar"]

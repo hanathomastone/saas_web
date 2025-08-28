@@ -17,10 +17,10 @@ public class AdminLoginController {
     private final AdminLoginService adminLoginService;
 
     /**
-     *  관리자 로그인
+     * 관리자 로그인
      */
     @PostMapping(value = "/login", name = "관리자 로그인")
-    public DataResponse<AdminLoginDto> adminLogin(@Valid @RequestBody AdminLoginRequest request){
+    public DataResponse<AdminLoginDto> adminLogin(@Valid @RequestBody AdminLoginRequest request) {
         DataResponse<AdminLoginDto> response = new DataResponse<>(adminLoginService.adminLogin(request));
         return response;
     }

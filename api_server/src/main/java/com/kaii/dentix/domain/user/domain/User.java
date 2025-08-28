@@ -1,5 +1,6 @@
 package com.kaii.dentix.domain.user.domain;
 
+import com.kaii.dentix.domain.organization.domain.Organization;
 import com.kaii.dentix.domain.type.GenderType;
 import com.kaii.dentix.domain.type.YnType;
 import com.kaii.dentix.global.common.entity.TimeEntity;
@@ -54,22 +55,9 @@ public class User extends TimeEntity {
     @Column(columnDefinition = "enum", nullable = false)
     private YnType isVerify;
 
-    private Long userDeviceTypeId;
-
-    @Column(length = 45)
-    private String userDeviceModel;
-
-    @Column(length = 45)
-    private String userDeviceManufacturer;
-
-    @Column(length = 45)
-    private String userOsVersion;
-
-    private String userDeviceToken;
-
-    @Column(length = 10)
-    private String userAppVersion;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     /**
      * RefreshToken, 최근 로그인 일자 업데이트
@@ -79,17 +67,7 @@ public class User extends TimeEntity {
         this.userLastLoginDate = new Date();
     }
 
-    /**
-     * 디바이스 정보 업데이트
-     */
-    public void modifyDeviceInfo(Long userDeviceTypeId, String userAppVersion, String userDeviceModel, String userDeviceManufacturer, String userOsVersion, String userDeviceToken) {
-        this.userDeviceTypeId = userDeviceTypeId;
-        this.userAppVersion = userAppVersion;
-        this.userDeviceModel = userDeviceModel;
-        this.userDeviceManufacturer = userDeviceManufacturer;
-        this.userOsVersion = userOsVersion;
-        this.userDeviceToken = userDeviceToken;
-    }
+
 
     /**
      *  비밀번호 수정
@@ -125,13 +103,13 @@ public class User extends TimeEntity {
         }
     }
 
+
     /**
      *  로그아웃
      */
     public void logout(){
-        this.userDeviceToken = null;
+        this.userRefreshToken = null;
     }
-
     /**
      *  회원탈퇴
      */

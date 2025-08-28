@@ -49,9 +49,5 @@ public class UserSignUpRequest {
 
     private Long patientId;
 
-    private String userDeviceModel;
-    private String userDeviceManufacturer;
-    private String userOsVersion;
-    private String userDeviceToken;
 
 }

@@ -5,6 +5,7 @@ import com.kaii.dentix.domain.oralCheck.dto.DashboardDto;
 import com.kaii.dentix.domain.oralCheck.dto.OralCheckDto;
 import com.kaii.dentix.domain.oralCheck.dto.OralCheckPhotoDto;
 import com.kaii.dentix.domain.oralCheck.dto.OralCheckResultDto;
+import com.kaii.dentix.domain.organization.application.OrganizationUsageService;
 import com.kaii.dentix.global.common.error.exception.FormValidationException;
 import com.kaii.dentix.global.common.response.DataResponse;
 import io.micrometer.common.util.StringUtils;
@@ -24,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 public class OralCheckController {
 
     private final OralCheckService oralCheckService;
+    private final OrganizationUsageService organizationUsageService;
 
     /**
      * 구강검진 사진 촬영

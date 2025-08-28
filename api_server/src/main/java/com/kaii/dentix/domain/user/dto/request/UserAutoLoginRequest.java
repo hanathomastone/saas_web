@@ -8,9 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserAutoLoginRequest {
 
-    private String userDeviceModel;
-    private String userDeviceManufacturer;
-    private String userOsVersion;
-    private String userDeviceToken;
+
 
 }

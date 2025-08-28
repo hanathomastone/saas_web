@@ -19,8 +19,6 @@ import com.kaii.dentix.domain.user.dto.UserInfoModifyQnADto;
 import com.kaii.dentix.domain.user.dto.UserLoginDto;
 import com.kaii.dentix.domain.user.dto.request.*;
 import com.kaii.dentix.domain.user.event.UserModifyDeviceInfoEvent;
-import com.kaii.dentix.domain.userDeviceType.dao.UserDeviceTypeRepository;
-import com.kaii.dentix.domain.userDeviceType.domain.UserDeviceType;
 import com.kaii.dentix.domain.userServiceAgreement.dao.UserServiceAgreementRepository;
 import com.kaii.dentix.domain.userServiceAgreement.domain.UserServiceAgreement;
 import com.kaii.dentix.domain.userServiceAgreement.dto.UserModifyServiceAgreeDto;
@@ -49,7 +47,7 @@ public class UserService {
 
     private final ApplicationEventPublisher publisher;
 
-    private final UserDeviceTypeRepository userDeviceTypeRepository;
+//    private final UserDeviceTypeRepository userDeviceTypeRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -100,37 +98,6 @@ public class UserService {
 
     }
 
-    /**
-     *  사용자 앱 정보 업데이트
-     */
-    @EventListener
-    public void userModifyDeviceInfo(UserModifyDeviceInfoEvent event){
-
-        HttpServletRequest servletRequest = event.getHttpServletRequest();
-
-        UserDeviceType userDeviceType;
-        String appVersion;
-
-        try {
-            DeviceType deviceType = DeviceType.valueOf(servletRequest.getHeader("deviceType"));
-            userDeviceType = userDeviceTypeRepository.findByUserDeviceType(deviceType).orElseThrow(() -> new NotFoundDataException("deviceType"));
-            appVersion = servletRequest.getHeader("appVersion");
-        } catch (Exception e) {
-            throw new RequiredVersionInfoException();
-        }
-
-        User user = userRepository.findById(event.getUserId()).orElseThrow(() -> new NotFoundDataException("User"));
-
-        user.modifyDeviceInfo(
-                userDeviceType.getUserDeviceTypeId(),
-                appVersion,
-                event.getUserDeviceModel(),
-                event.getUserDeviceManufacturer(),
-                event.getUserOsVersion(),
-                event.getUserDeviceToken()
-        );
-
-    }
 
     /**
      *  사용자 자동 로그인
@@ -146,11 +113,8 @@ public class UserService {
 
         publisher.publishEvent(new UserModifyDeviceInfoEvent(
                 user.getUserId(),
-                httpServletRequest,
-                userAutoLoginRequest.getUserDeviceModel(),
-                userAutoLoginRequest.getUserDeviceManufacturer(),
-                userAutoLoginRequest.getUserOsVersion(),
-                userAutoLoginRequest.getUserDeviceToken()
+                httpServletRequest
+
         ));
 
         return UserLoginDto.builder()

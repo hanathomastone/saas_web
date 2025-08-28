@@ -90,7 +90,7 @@ public class AdminService {
     }
 
     /**
-     *  관리자 비밀번호 변경
+     *  관리자 비밀번호 변경 
      */
     @Transactional
     public void adminModifyPassword(HttpServletRequest httpServletRequest, AdminModifyPasswordRequest request){

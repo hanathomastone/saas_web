@@ -3,12 +3,10 @@ package com.kaii.dentix.domain.user.dto.request;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.kaii.dentix.global.config.PasswordSerializer;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter @Builder
+@Setter
 @AllArgsConstructor @NoArgsConstructor
 public class UserLoginRequest {
 
@@ -19,9 +17,5 @@ public class UserLoginRequest {
     @JsonSerialize(using = PasswordSerializer.class)
     private String userPassword;
 
-    private String userDeviceModel;
-    private String userDeviceManufacturer;
-    private String userOsVersion;
-    private String userDeviceToken;
 
 }

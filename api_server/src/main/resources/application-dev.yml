@@ -3,9 +3,9 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/db_test_saas
-    username: root
-    password: hana0142!
+    url: jdbc:mysql://family-doctor-deploy.cgwxpd8pts2m.ap-northeast-2.rds.amazonaws.com:33001/dentix-saas-dev
+    username: kaii
+    password: kai!#0709
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari: # connection-timeout :  pool에서 connect 얻을 때 최대 대기시간이며, 기본 30초임
@@ -42,6 +42,8 @@ spring:
         provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
       format_sql: true
       ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       #use-new-id-generator-mappings: true # JPA 표준에 맞는 새로운 키 생성 전략을 사용함.
     properties:
       hibernate.connection.provider_disables_autocommit: true

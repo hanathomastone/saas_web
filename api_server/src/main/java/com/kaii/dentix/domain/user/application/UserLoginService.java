@@ -155,11 +155,7 @@ public class UserLoginService {
 
         publisher.publishEvent(new UserModifyDeviceInfoEvent(
                 user.getUserId(),
-                httpServletRequest,
-                request.getUserDeviceModel(),
-                request.getUserDeviceManufacturer(),
-                request.getUserOsVersion(),
-                request.getUserDeviceToken()
+                httpServletRequest
         ));
 
         return UserSignUpDto.builder()
@@ -205,11 +201,7 @@ public class UserLoginService {
 
         publisher.publishEvent(new UserModifyDeviceInfoEvent(
                 user.getUserId(),
-                httpServletRequest,
-                request.getUserDeviceModel(),
-                request.getUserDeviceManufacturer(),
-                request.getUserOsVersion(),
-                request.getUserDeviceToken()
+                httpServletRequest
         ));
 
         return UserLoginDto.builder()

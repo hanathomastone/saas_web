@@ -1,7 +1,6 @@
 package com.kaii.dentix.global.common.filter;
 
 import com.kaii.dentix.domain.type.DeviceType;
-import com.kaii.dentix.domain.userDeviceType.application.UserDeviceTypeService;
 import com.kaii.dentix.global.common.error.ErrorResponse;
 import com.kaii.dentix.global.common.response.ResponseMessage;
 import jakarta.servlet.*;
@@ -17,8 +16,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class VersionCheckFilter implements Filter {
 
-    private final UserDeviceTypeService userDeviceTypeService;
-
     /**
      * 필터 실행 부분 입니다.
      */
@@ -33,12 +30,7 @@ public class VersionCheckFilter implements Filter {
         String appVersion = servletRequest.getHeader("appVersion");
 
         try {
-            if (userDeviceTypeService.headerCheck(servletRequest)) {
-                if (!userDeviceTypeService.versionCheck(DeviceType.valueOf(deviceType), appVersion)) {
-                    ErrorResponse.of(servletResponse, HttpStatus.UPGRADE_REQUIRED, ResponseMessage.UPDATE_REQUIRED_MSG);
-                    return;
-                }
-            }
+
         } catch (Exception e) {
             ErrorResponse.of(servletResponse, HttpStatus.NOT_ACCEPTABLE, ResponseMessage.REQUIRED_VERSION_INFO_MSG);
             return;

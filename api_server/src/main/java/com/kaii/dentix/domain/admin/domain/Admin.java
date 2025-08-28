@@ -42,6 +42,12 @@ public class Admin extends TimeEntity {
 
     private String adminRefreshToken;
 
+//    private String organization;
+
+//    private Integer idlePeriod;
+
+//    private String planId;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date deleted;
 
